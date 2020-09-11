@@ -1,4 +1,11 @@
 class ConversationsController < ApplicationController
+
+  def get_credentials
+    @client = Twilio::REST::Client.new(ENV['account_sid'], ENV['auth_token'])
+    token = @client.tokens.create({ttl: 1800})
+    render json: {credentials: token.ice_servers}
+  end
+
   def find_open_room
   #  Starting with a single Conversation pool. Ideally, once working, find_by multiple values (not only open Conversations,
   #  but Conversations that belong to verified users, intermediate users, or beginner users). Use conditionals to determine
@@ -52,5 +59,12 @@ class ConversationsController < ApplicationController
   # end
 
   def reopen
+    conversation = Conversation.find(params['conversation_id'])
+    present_user_id = params["user_id"]
+    if conversation.user1_id == present_user_id
+      conversation.update(user2_id: nil, status: "open")
+    else
+      conversation.update(user1_id: nil, status: "open")
+    end
   end
 end

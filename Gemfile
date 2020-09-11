@@ -50,4 +50,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "websocket-extensions", ">= 0.1.5"
 gem "actionpack", ">= 6.0.3.1"
 
+# Gem for Twilio Stun/Turn servers
+gem 'twilio-ruby'
 
+# Gem for ENV variables
+gem 'figaro'

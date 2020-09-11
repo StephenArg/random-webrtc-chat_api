@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   post 'conversations/find_open_room'
   post 'conversations/reopen'
+  get 'conversations/credentials', to: 'conversations#get_credentials'
 
   get 'messages/create'
 
